@@ -1,0 +1,38 @@
+
+243. Shortest Word Distance
+
+w1_index = -1
+w2_index = -1
+min_dist = max_positive_integer -> (32000)
+
+for i in range(wordsDict):
+	if wordsDict[i] == word1:
+		w1_index = i
+	if wordsDict[i] == word2:
+		w2_index = i
+	
+	# We only want to compute the distance iff we have detected the indices for two words
+	if w1_index != -1 and w2_index != -1:
+		min_dist = min(min_dist, math.abs(w1_index - w2_index))
+
+return dist
+
+
+746. Min Cost Climbing Stars
+
+dp = [0 for i in range(len(cost) + 1)] # dp[i] is the most optimal cost to reach step ith. We want dp array to have an extra element compared to cost array to represent the top step right after cost[-1]
+
+for i in range(2,len(dp)):
+	# General Formula for computing bigger problem using solution of sub-problems
+	dp[i] = min(dp[i-1] + cost[i-1], dp[i-2] + cost[i-2]) # Which translate to this statement: "The current optimal cost of step i would depend on the minimum of the previous step i - 1 and i -2 (since we can start either step 0 or 1) adding the cost coming along with the choice of i-1 or i-2 to reach step i.
+	
+return dp[-1] # Last element is the optimal cost to reach the top
+ 
+	
+
+
+
+
+
+
+
