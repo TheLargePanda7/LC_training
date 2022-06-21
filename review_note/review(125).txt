@@ -1,0 +1,32 @@
+Review Note:
+
+Problem: 125. Valid Palindrome
+Level: Easy
+Topic: String
+Note:
+	We need to first create a new empty string and build it by iterating through the original string and appending non-alphanumeric characters and also convert chars to lower case
+	Once we are done building the string, we can call the helper method to help check for palindrome by using 2 ptrs technique
+  A couple useful built-in functions in this problem are islower(),isupper() -> check if a char is upper ,lower() -> convert to lower case , isalnum() -> check if a string is alphanumeric.
+	
+Code:
+	def isPalindromeHelper(str):
+		left = 0
+		right = len(str) - 1
+		while left < right:
+			if str[left] == str[right]:
+				left += 1
+				right -= 1
+			else:
+				return false
+		return true
+
+	def isPalindrome(self,s):
+		str = ""
+		for i in range(len(s)):
+			if s[i] == " ":
+				continue
+			# Check for alphanumeric characters
+			if s[i].isalnum():
+				str += s[i].lower()
+		
+		return self.isPalindrome(str)
