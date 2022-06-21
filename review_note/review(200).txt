@@ -1,0 +1,46 @@
+Review Note:
+
+Problem: 200. Number of Islands
+Level: Medium
+Topic: DFS, backtracking 
+Note: 
+
+For this problem, for each cell in the array, we need to check its neighbors in all four directions (north,south,east,west) if they are "1" as we can extend the island. We will need to do depth-first search by traversing all neighbor cells as long as they are 1 and ensure to mark the cell visited so that we do not revisit again (this will save run-time)
+
+
+Code:
+
+
+def dfs(self,grid,rows,cols,r,c):
+	# Check for boundaries and if the current cell is land or water
+	if r < 0 or c < 0 or r >= rows or c >= cols or grid[r][c] != 1:
+		return
+	grid[r][c] = "visited"
+	
+	# Check all four directions
+	self.dfs(grid,rows,cols,r-1,c) # North
+	self.dfs(grid,rows,cols,r+1,c) # South
+	self.dfs(grid,rows,cols,r,c-1) # West
+	self.dfs(grid,rows,cols,r,c+1) # East
+		
+	
+
+def numIslands(self,grid):
+	if not grid or len(grid) == 0:
+		return 0
+
+	cols = len(grid[0])
+	rows = len(grid)
+
+	cnt = 0
+	for i in range(rows):
+		for j in range(cols):
+			if grid[i][j] == 1:
+				cnt += 1
+				# The helper method will further explore neighbor cells to see if the island can be expanded
+				self.dfs(grid,rows,cols,i,j)
+				
+
+	return cnt
+				
+			
