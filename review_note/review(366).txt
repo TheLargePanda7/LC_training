@@ -1,0 +1,60 @@
+Review Note:
+
+Problem: 366. Find Leaves of Binary Tree
+Level: Medium
+Topic: Tree
+Note:
+According to given examples, we do not actually have to modify the tree by removing nodes, but as long as we add correct order of nodes in the array is fine.
+If we were to draw out the tree and write out their height for each node, we realize that leave nodes with the same height are grouped together.
+
+For example:
+
+		1 [2]
+   	  /  		\
+  	2 [1] 	3 [0]
+	/  \
+4 [0]  5 [0]
+
+To find the height, we follow this recursion expression:
+
+height(root) = 1 + max(height(root.left),height(root.right))
+Where root.left == None and root.right == None has height of 0 since it is a leave node
+
+We create a dictionary to append the level as a key and array of group of leave nodes as value
+
+
+Iterate through the dictionary to further append to result array
+
+
+
+Code:
+	def removeNodes(self,dict,root):
+		if root.left == None and root.right == None:
+			return 0
+		if root.left == None and root.right != None:
+			curHeight = 1 + max(0,removeNodes(root.right))
+		elif root.left != None and root.right == None:
+			curHeight = 1 + max(0,removeNodes(root.left))
+		else:
+			curHeight = 1 + max(removeNodes(root.left),removeNodes(root.right))
+		if curHeight not in dict:
+			dict[curHeight] = [root.val]
+		else:
+			dict[curHeight].append(root.val)
+
+		return curHeight
+
+	def findLeaves(self,root):
+		if root.left == None and root.right == None:
+			return [[root.val]]
+		if not root:
+			return []
+
+		dict = {}
+		res = []
+		self.removeNodes(dict,root)
+
+		for key in dict:
+			res.append(dict[key])
+
+		return res
