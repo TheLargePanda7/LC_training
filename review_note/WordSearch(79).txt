@@ -1,0 +1,58 @@
+
+Review Note:
+
+Problem: 79. Word Search
+Level: Medium
+Topic: Backtracking, DFS
+Note:
+	This problem is very similar to the number of islands as we need to DFS to find the path of the word that we want. 
+	We can start by iterating through the entire 2-D grid and call a helper method DFS to help us search for neighbor cells. Note that we only continue searching if the grid[i][j] == word[:1] or current character in the given word
+	For example, if the first character at i = 0 and j = 0 is A and the word is "ABCCED," then we want to search the following directions: north, south, west, and east and remember to truncate the character every time we move on searching the next cell in the path, which will be "BCCED" and so on
+
+Code:
+
+	def dfs(self,board,r,c,rows,cols,curr):
+		
+		# if the curr is empty string, we have successfully found the path
+		if len(curr) == 0:
+			return True
+
+		# check for boundary
+		# return false if the current character in word does not match the cell in grid
+		if r < 0 or c < or c >= rows or r >= cols or grid[r][c] != curr[0]:
+			return False
+
+		# Mark to be visited so that we do not re-traverse
+		board[r][c] = "visited"
+		
+		# Unlike problem "Number of islands" we do not want to traverse all directions at the same time
+		# We want to do one at a time because we assume that there exists only one path or none in the grid
+		# If we traverse all directions, it will be a waste of time
+		
+		dirs = [(1,0),(-1,0),(0,1),(0,-1)]
+		
+		# For each direction, we will traverse
+		for dir in dirs:
+			row = dir[0]
+			col = dir[1]
+			if self.dfs(board,r+row,c+col,rows,cols,curr[1:]):
+				return True
+		# Remember to change the current cell back if we found no path so that it does not affect the other iteration (backtracking here)
+		board[r][c] = curr[0]
+		
+		# If we reach to this point, that means the word does not exist in the grid
+		return False
+
+			
+
+	def exist(self,board,word):
+		if not board:
+			return False
+		rows = len(board)
+		cols = len(board[0])
+		for r in rows:
+			for c in cols:
+				if self.dfs(board,r,c,rows,cols,word):
+					return True
+					
+		return False
