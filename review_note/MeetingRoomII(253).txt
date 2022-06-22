@@ -1,0 +1,43 @@
+Review Note:
+
+Problem: 253. Meeting Room II
+Level: Medium
+Topic: Min-heap, priority queue, greedy
+	
+Note:
+	There are two choices we can make:
+	Case 1:
+		If the current time of the room has conflict with the room that we are currently using, we need to allocate a new room
+	Case 2:
+		If the current time of the room has NO conflict with the room that we are currently using, we do not need to allocate it
+	So logically, we will check the room that ends the fastest if we are wondering whether if we want to allocate a new one or not
+	This has a sort of priority queue where certain element has a higher priority than the others. We will apply min-heap and greedy in this problem
+	First, we sort the array by the start-time and then we push the end-time of the element to the min-heap. This means that the root of the min-heap will always be the meeting that ends the earliest. By comparing the start-time of the new meeting interval to the end-time of the earliest ending meeting, we minimize the room we want to allocate.
+	Min-heap will structurally organize itself every time a new min element is pushed 
+
+Code:
+	# Standard library
+	from heapq import heapify, heappush,heappop 
+	def minMeetingRooms(self,intervals):
+		if not intervals:
+			return 0
+		intervals = sorted(intervals, key = lambda x : x[0]) # sort based on start-time
+		heap = []
+		heapify(heap)
+		heappush(intervals[0][1)
+		cnt = 1
+		
+		for i in range(1,len(intervals)):
+			start_time_new_interval = intervals[i][0]
+			end_time_min_heap = heap[0] # Peek the root node
+			# Case 1 (conflict - need to allocate a new room)
+			if start_time_new_interval < end_time_min_heap:
+				# New end time
+				heappush(heap,intervals[i][1])
+				cnt += 1
+			else:
+				# Remove the minimum element since meeting is done and it is not possible to have another meeting that start even earlier then the current meeting since we sorted already 
+				heappop(heap)
+				heappush(heap,intervals[i][1])
+
+		return cnt
