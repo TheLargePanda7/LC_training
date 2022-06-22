@@ -1,0 +1,38 @@
+Problem: 49 Group Anagrams
+Level: Medium
+Topic:
+	Hash Table, sorting
+Note:
+	Anagram refers to a word that can be formed using a group of characters from a different word such as "eat" and 
+"tea"
+	Declare a dictionary and then iterate through the original array to append the sorted version of the word as a key to the dictionary
+
+	For example:
+	dict = {
+	"aet" : [eat,tea,ate],
+	"abt": [bat]
+	}
+
+	Iterate through every single word in the original array again, sort it, and then check if it is in the dictionary. If it is, then create an array and append it to it
+	At the end, iterate through dictionary to append all sub-arrays (value of the key) to the res array and return it
+		
+Code: 
+	def groupAnagrams(self,strs):
+		if len(strs) == 1:
+			return [strs]
+
+		dict = {}
+		for i in range(len(strs)):
+			# We need a join function because sorted() does not return a string, but a list
+			if ''.join(sorted(strs[i])) not in dict:
+				# First apperance
+				dict[''.join(sorted(strs[i]))] = [strs[i]]
+			else:
+				# Second apperance
+				dict[''.join(sorted(strs[i]))].append(strs[i])
+
+		res = []
+		for key in dict:
+			res.append(dict[key])
+
+		return res
