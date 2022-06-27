@@ -45,7 +45,10 @@ class Solution(object):
                     queue.append(node.right)
             # Once inner loop finishes, we are also done with level i
             res.append(level)
-            
+        
+        # We want to return the res array except the last element
+        # This is because we also append null nodes to the queue, so the while loop will still iterate although we do not necessarily need it
+        # Hence, we sort of append the empty sub array for no reason to the res array and the empty subarray is the last element in the res array
         return res[:len(res)-1]
 
 
