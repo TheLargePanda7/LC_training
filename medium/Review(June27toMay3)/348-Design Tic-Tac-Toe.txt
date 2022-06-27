@@ -1,0 +1,51 @@
+Problem: 348. Design Tic-Tac-Toe
+Level: Medium
+Topic:
+	Array, Matrix
+Note:
+	Naive Approach will be n^2 * O(n^2) and this is way too slow
+	Optimized approach (by declaring two arrays to keep track of the row and col moves) is O(1)
+	Declare two arrays and update them as player 1 or 2 moves where increment is player 1 and decrement is player 2 or vice versa
+	For example, row[0] = 3, this means that the entire row 1 has been filled by player 1 and player 1 wins if n = 3
+	so in other words, if row[i] or col[i] == n, player 1 wins. Else if rows[i] or col[i] == -n (because we decrement counter when player 2 moves), player 2 wins
+	For diagonal and anti-diagonal, just declare two variables to keep track of the count (this is because there is only one diagonal and anti-diangonal in the board regardles the size
+		
+Code: 
+	class TicTacToe(object):
+
+		def __init__(self, n):
+			self.size = n
+			self.winner = None
+			self.rows = [0 for i in range(n)]
+			self.cols = [0 for i in range(n)]
+			self.diag = 0
+			self.anti_diag = 0
+		
+		def move(self, row, col, player):
+			# Do not need to check if a move is valid or not (save us some code)
+			off-set = 0
+			if player == 1:
+				off-set = 1
+			else:
+				off-set = -1
+			if self.winner == None:
+				self.rows[row] += offset
+				self.cols[col] += offset
+
+				# Check if it is diagonal
+				if row == col:
+					self.diag += offset
+
+				# Check if it is anti-diagonal
+				if col == n - row - 1:
+					self.anti_diag += offset
+			
+				# Check for winner
+				if abs(self.rows[row]) == self.size or abs(self.cols[col]) == self.size or abs(self.diag) == self.size or abs(self.anti_diag) == self.size:
+					winner = player
+					return winner
+			return 0
+			
+			
+			
+			
