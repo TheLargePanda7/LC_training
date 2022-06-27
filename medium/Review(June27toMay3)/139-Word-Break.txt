@@ -1,0 +1,45 @@
+Problem: 139. Word Break
+Level: Medium
+Topic: 
+	String, Dynamic Programming
+	
+Note:
+		For string s to be segmented into space-separated sequence of one or more dictionary words
+      	the substrings must also be the same as well
+        
+      	For example:
+        	s = "leetcode" dict = ["code"]
+        
+        	let's say s1 = s[:4]
+        	if it is impossible to break s1 into one or more dictionary word, then it is also impossible for s because remember that every single character in a string must contribute to a dictionary word
+        
+        	In this case, s1 = leet and leet is not in dictionary, then how would all s = "leetocde" be segmented?
+        
+        	This is essentially a dynamic programming problem because the solution of sub-problem can help solve bigger problem
+
+		We will use two pointers technique to get all possible substrings of string s and check if they are in dictionary
+		
+		If the current substring are in dictionary, check in dp array if the previous substring can be segmented into words that are in dictionary. If yes to both if statements, then mark the current index i in dp array to be true (dp[i] -> found a substring with length i that can be segmented into words that are in dictionary)
+
+		
+Code: 
+	
+	class Solution:
+    		def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+			dp = [False for i in range(len(s)+1)]
+        
+        		dp[0] = True # Empty string is always in dictionary
+        
+        		# i is the length of the substring
+        		# j is the start index
+        		# Explanation: get all possible substrings using two ptrs technique and check if it is in dictionary
+        
+        
+        		for i in range(1,len(s)+1):
+            		for j in range(i):
+                	substr = s[j:i]
+                	if substr in wordDict and dp[j]:
+                	    dp[i] = True
+                
+        
+        		return dp[-1]
