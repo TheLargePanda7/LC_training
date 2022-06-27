@@ -1,0 +1,41 @@
+Problem: 102. Binary Tree Level Order Traversal
+Level: Medium
+Topic:
+	Tree, BFS
+Note:
+	Since we want to visit nodes in level-order fashion, we want to use BFS technique.
+	BFS can be implemented using queue (FIFO order where we append to the right and pop to the left)
+	So we will calculate the number of elements in the current queue and iterate through that many elements. For example, if level i has two nodes, we will iterate two times
+	For each iteration, we pop left of the queue, check if it has children nodes, and append it to the queue (if it has)
+	Continue until n iteration is done, which implies that we are done with level i. Append the sub array to a result array after all iterations
+	Repeat same process
+		
+Code: 
+	
+	class Solution(object):
+    		def levelOrder(self, root):
+
+			queue = deque()
+			res = []
+			
+			queue.append(root)
+			
+			while queue:
+				level = len(queue)
+				subarr = []
+				for i in range(0,level):
+					element = queue.popleft()
+					# Important to append the left first before the right since that is what we want
+					queue.append(element.left)
+					queue.append(element.right)
+					level.append(element.val)
+				# Once we get out of the line, this signals that level i is done
+				# Proceed to append it to result array
+				res.append(subarr)
+		
+		return res[:len(res)-1]
+		
+		
+					
+			
+			
