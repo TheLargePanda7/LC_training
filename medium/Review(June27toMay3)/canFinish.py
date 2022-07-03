@@ -16,7 +16,7 @@ class Solution(object):
         return False
         
     def cycleDetector(self,graph,n,mark):
-        
+        # We need to iterate through every single node because there may be the case that one graph is completely separated from other graph and it has cycle. We need to make sure we check that
         for node in range(n):
             if mark[node] == "WHITE":
                 if self.dfs(graph,node,mark):
