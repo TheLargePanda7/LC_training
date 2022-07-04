@@ -14,7 +14,7 @@ class Solution(object):
         if len(subarray) >= 3:
             return
         if curr.IsitWord:
-            subarray.append(prefix)
+            subarray.append(prefix) # Two ways to go about this: we can either do subarray.append(curr.word) or the one that we have now
             
         # Remember that if the current node has more than 3 childrens, then we will priotize returning the words lexicographically
         # So we want to iterate from a to z to have that priority property
@@ -66,7 +66,7 @@ class Solution(object):
                 
             # At this point, curr is not a root node, but a leaf node that lead to a complete word        
             curr.IsitWord = True
-            curr.word = char
+            curr.word = char # Error: this should be "curr.word = product"
             
         res = []
         prefix = ""
