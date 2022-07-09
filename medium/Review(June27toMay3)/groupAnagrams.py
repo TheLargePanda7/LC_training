@@ -8,6 +8,8 @@ class Solution:
         dict = defaultdict(list)
         
         for word in strs:
+            # sorted() returns an array
+            # must use join to collectively group them together as a string
             dict["".join(sorted(word))].append(word)
         
         return dict.values()
