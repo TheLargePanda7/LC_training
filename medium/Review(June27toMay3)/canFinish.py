@@ -1,5 +1,5 @@
 class Solution(object):
-    
+    # Note: reviewed, but still need to practice more to remember the structure of the algorithm
     def dfs(self,graph,currNode,mark):
         
         mark[currNode] = "GRAY"
