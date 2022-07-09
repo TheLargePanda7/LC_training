@@ -36,6 +36,7 @@ class Solution(object):
         while queue:
             n = len(queue)
             level = []
+            # Iterate thourgh number of nodes in current level
             for i in range(n):
                 node = queue.popleft() # pop the first in element in the queue
                 if node:
