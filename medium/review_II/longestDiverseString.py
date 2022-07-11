@@ -58,6 +58,14 @@ class Solution:
                 
         print(res)
         # Remember that there may be a case where our heap still has remaining character to add
+        """
+            We may be wondering that what happens if res = "ccbc" and then remaning character is c. 
+            Wouldn't the code below fail? No, it will not because we always pop the first max out and then second max and append characters in that order
+            If after the process is done and remaining character is still c, then it must mean that c is the 1st max
+            Since c is the 1st max, it will get added first. 
+            Remember that the character remaining is always 1st max and get appended before 2nd max. Hence, 2nd max character is always the end of the string and we
+            will not have the case such as above to repeat characters consecutively. 
+        """
         if heap:
             # Ex: s = "aba" a = 0, b = 1
             # Ex2: s = "aba" a = 0, b = 2
