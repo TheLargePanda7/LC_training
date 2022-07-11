@@ -64,7 +64,7 @@ class Solution:
             If after the process is done and remaining character is still c, then it must mean that c is the 1st max
             Since c is the 1st max, it will get added first. 
             Remember that the character remaining is always 1st max and get appended before 2nd max. Hence, 2nd max character is always the end of the string and we
-            will not have the case such as above to repeat characters consecutively. 
+            will not have the case such as above to repeat c characters consecutively. 
         """
         if heap:
             # Ex: s = "aba" a = 0, b = 1
