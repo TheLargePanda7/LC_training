@@ -45,13 +45,16 @@ class Solution(object):
                     neg[i] = 0 # No negative subarray can be constructed so far
                 
             elif nums[i] < 0:
+                # There exists a positive product with length n at previous index i
                 if pos[i-1] != 0:
-                    neg[i] = 1 + pos[i-1] # (+) * (-) = (-)
+                    neg[i] = 1 + pos[i-1] # (+) * (-) = (-) -> multiplying neg number with positive product subarray will expand negative product subarray
                 else:
+                    # pos[i-1] == 0 (there exists no positive product subarray at the previous index)
                     neg[i] = 1 # A new subarray containing negative product is discovered
                 
+                # There exists a negative product with length n at previous index i
                 if neg[i-1] != 0:
-                    pos[i] = neg[i-1] + 1 # (-) * (-) = (+) 
+                    pos[i] = neg[i-1] + 1 # (-) * (-) = (+) -> multiplying neg number with negative product subarray will expand positive product subarray
                 else:
                     pos[i] = 0 # Cut-off the current element from the subaray since it is negative
                     
