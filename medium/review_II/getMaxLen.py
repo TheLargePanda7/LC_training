@@ -50,7 +50,13 @@ class Solution(object):
                     neg[i] = 1 + pos[i-1] # (+) * (-) = (-) -> multiplying neg number with positive product subarray will expand negative product subarray
                 else:
                     # pos[i-1] == 0 (there exists no positive product subarray at the previous index)
-                    neg[i] = 1 # A new subarray containing negative product is discovered
+                    """
+                    For example:
+                        [-1,-2]
+                    pos: 0  2
+                    neg: 1  1
+                    """
+                    neg[i] = 1 # A new subarray containing negative product is discovered or continue negative product subarray with same length as shown above
                 
                 # There exists a negative product with length n at previous index i
                 if neg[i-1] != 0:
