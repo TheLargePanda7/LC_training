@@ -8,39 +8,42 @@ class Node:
         self.parent = None
 """
 
-class Solution(object):
-    def lowestCommonAncestor(self, p, q):
+class Solution:
+    def lowestCommonAncestor(self, p: 'Node', q: 'Node') -> 'Node':
         """
-        :type node: Node
-        :rtype: Node
+        We will obtain the path from p to root and q to root by traversing using self.parent pointer
+        Store the paths into data strucutre such as arrays or strings
+        Let's use example 2:
+        path from p to root is 5 -> 3
+        path from q to root is 4 -> 2 -> 5 -> 3
+        
+        Notice that the FIRST common point of these two paths is the LCA
+        
         """
         
-        p_ptr = p
-        q_ptr = q
-        
+        curr_p = p
+        curr_q = q
         path_p = []
         path_q = []
         
-        # Construct the path from node p or q to root
-        while p_ptr:
-            path_p.append(p_ptr)
-            p_ptr = p_ptr.parent
-            
-        while q_ptr:
-            path_q.append(q_ptr)
-            q_ptr = q_ptr.parent
+        # Iteratively construct the path
+        while curr_p != None:
+            path_p.append(curr_p)
+            curr_p = curr_p.parent
+        while curr_q != None:
+            path_q.append(curr_q)
+            curr_q = curr_q.parent
         
-        # Searching for the first common element in both arrays
+        # Traverse the array to find the FIRST common point
+        # To find the intersection of two lists, we will go through one array in order and check if it is in other path. If it is, then return that element
+        # This guarantee to get a first common point because we traverse and check elements from left to right
+        
         for i in range(len(path_q)):
             if path_q[i] in path_p:
                 return path_q[i]
-        
-                
-        
-        
-                
-        
-        
-        
+            
+            
+        return None
+            
             
         
