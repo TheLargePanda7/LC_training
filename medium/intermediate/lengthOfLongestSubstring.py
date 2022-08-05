@@ -1,52 +1,32 @@
-class Solution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
-        
-        # Apply sliding windows technique with two pointers
+lass Solution(object):
+    def lengthOfLongestSubstring(self, s):
         """
-            Assign left and right pointer to be the 0th position initially
-            Move the right pointer as long as the characters that we traverse is not in hashmap (not encountering a repeating character yet) to expand the subarray as long as we could
-            As soon as a character is in hashmap, this implies that we previously have the same char already and need to move the left pointer to discover another subarray. Assign a current position of repeated character to be its key-value in hash map. This is because we can avoid checking for substrings that we know it has repeating character
-            For example:
-                        L
-                        |
-            s =     a   b   c   d   e   a   f   a
-                                                |            
-                                                R
-            map = {
-                a: 8,
-                b: 2,
-                c: 3,
-                d: 4,
-                e: 5,
-                f: 7
-            }
-            Since we know that substring bcdeafa would contain repeating char, we can move the left pointer to whatever current position + 1 of that repeating character to avoid checking this substring, so in this case L is pointing at "f"
-            
+        :type s: str
+        :rtype: int
         """
         L = 0
         R = 0
-        map = {}
-        n = len(s)
-        res = 0
         
-        while R < n:
-            if s[R] in map:
-                # Adjust the left pointer to be the most current position of repeating character + 1
-                # "abba" special case
+        # Index = character
+        # Value = index of that character (where it is most recently seen)
+        mp = {}
+        longestSub = 0
+        
+        while R < len(s):
+            if s[R] in mp:
+                # Get the index of this repeated character (previous seen)
+                prev = mp[s[R]]
+                
+                # Because this character is repeated somewhere before, we will adjust left ptr to be 1 + where it is so that we can avoid computation
+                # However, keep in mind that we could have seen the repeated character way before current index L as it happens when we have more than one repeated character such as abba where we already adjusted L ptr to be most recent b, but then encounter "a" lastly, which made us to adjust L ptr to point to first "a" (we do not want this).
                 # Mistake: L = map[s[R]] -> does not work on "abba"
-                # Because the L ptr will be back to the first char "a" which we do not want
-                # To fix this, we get the max bwtween current left ptr position and the position of repeating character
-                L = max(L,map[s[R]])
+                # Hence, we need to take a max of the highest current index of L (think about s = "abba")
+                L = max(prev,L)
                 
-            map[s[R]] = R + 1
-            # Calculate the max len that we discover so far
-            res = max(res,R - L + 1)
+            # Regardless if current char is in map or not, we still need to (1) append to map or (2) update this curr char most recently seen index
+            # Update the most recently seen index of this repeated character
+            mp[s[R]] = R + 1
+            longestSub = max(longestSub,R-L+1)
             R += 1
-        return res
-                
-                
-                
-                
-        
-    
-        
+            
+        return longestSub
