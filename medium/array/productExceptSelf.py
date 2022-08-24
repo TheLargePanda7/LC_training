@@ -25,6 +25,6 @@ class Solution(object):
         # Build right array using var_R and also produce the answer using L array in res array
         for i in range(n-1,-1,-1):
             res[i] = res[i] * var_R
-            var_R *= nums[i] # Compute the product of elements to the right of current element
+            var_R *= nums[i] # Compute the product of elements to the right of current element (stacked as we traverse)
             
         return res
